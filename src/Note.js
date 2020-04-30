@@ -13,9 +13,6 @@ class Note extends React.Component {
       edit: false,
       content: '' 
     }
-    this.editNote = this.editNote.bind(this);
-    this.saveNote = this.saveNote.bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +20,7 @@ class Note extends React.Component {
     this.setContent();
   }
 
-  setContent() {
+  setContent = () => {
     let content = '# Here\'s another note!\n\nGo ahead and edit to your heart\'s content.'
     if (this.props.index === 0) {
       content = '# Hey there!\n\nThis is your first Markdown note. You can:\n\n* Click/Focus to edit\n\n* Click off/Blur to save\n\n* Add a new note by clicking the plus sign above.\n\n* Delete this note'
@@ -31,40 +28,39 @@ class Note extends React.Component {
     this.setState({ content });
   }
 
-  getLocalStorage() {
-    const edit = JSON.parse(localStorage.getItem('edit'));
-    const content = localStorage.getItem('content');
+  getLocalStorage = () => {
+    const edit = JSON.parse(window.localStorage.getItem('edit'));
+    const content = window.localStorage.getItem('content');
     if (edit === 'true') {
       this.setState({ edit, content });
     }
   }
 
-  getMarkdownText() {
+  getMarkdownText = () => {
     let content = this.state.content;
     let markup = marked(content);
     return { __html: markup };
   }
 
-  selectText(e) {
+  selectText = (e) => {
     e.target.select();
   }
 
-  toggleEdit() {
+  toggleEdit = () => {
     let edit = !this.state.edit;
     this.setState({ edit });
   }
 
-  editNote(e) {
+  editNote = (e) => {
     const content = e.target.value;
     this.setState({ content });
   }
 
-  saveNote() {
+  saveNote = () => {
     console.log('saving note');
     const { edit, content } = this.state;
-    localStorage.setItem('edit', JSON.stringify(edit));
-    localStorage.setItem('content', content);
-    console.log(localStorage);
+    window.localStorage.setItem('edit', JSON.stringify(edit));
+    window.localStorage.setItem('content', content);
   }
 
   render() {
