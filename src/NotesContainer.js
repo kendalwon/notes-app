@@ -12,13 +12,10 @@ class NotesContainer extends React.Component {
         date: 'Monday February 24, 2020 at 1:44PM'
       }]   
     }
-    this.addNote = this.addNote.bind(this);
-    this.saveNotes = this.saveNotes.bind(this);
-    this.deleteNote = this.deleteNote.bind(this);
   }
 
   componentDidMount() {
-    const notes = localStorage.getItem('notes') === 'true';
+    const notes = window.localStorage.getItem('notes') === 'true';
     if (notes === 'true') {
       this.setState({ notes });
     }
@@ -29,7 +26,7 @@ class NotesContainer extends React.Component {
     this.saveNotes();
   }
 
-  addNote() {
+  addNote = () => {
     let today = new Date().getTime();
     function convertDate(d) {
       const now = new Date(d);
@@ -57,12 +54,12 @@ class NotesContainer extends React.Component {
     });
   }
 
-  saveNotes() {
+  saveNotes = () => {
     const { notes } = this.state;
-    localStorage.setItem('notes', notes);
+    window.localStorage.setItem('notes', notes);
   }
 
-  deleteNote(i) {
+  deleteNote = (i) => {
     const tempNotes = [...this.state.notes];
     console.log(tempNotes);
     tempNotes.splice(i, 1);
